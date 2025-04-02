@@ -9,17 +9,34 @@ import {
   Image
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 /*falta a parte do login pra arrumar*/
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    if (email === "" && password === "") {
-      navigation.navigate("Main");
-    } else {
-      Alert.alert("E-mail ou senha inválidos!");
+  const handleLogin = async () => {
+    try {
+      // Recupera a lista de usuários salvos
+      const usersData = await AsyncStorage.getItem("users");
+      const users = usersData ? JSON.parse(usersData) : [];
+  
+      // Verifica se existe um usuário com o email e senha fornecidos
+      const foundUser = users.find(
+        (user) => user.email === email && user.password === password
+      );
+  
+      if (foundUser) {
+        // Armazena o email do usuário logado
+        await AsyncStorage.setItem("userId", foundUser.email);
+        navigation.navigate("Main");
+      } else {
+        Alert.alert("Erro", "E-mail ou senha inválidos!");
+      }
+    } catch (error) {
+      Alert.alert("Erro", "Falha ao recuperar os dados!");
     }
   };
 

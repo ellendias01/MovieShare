@@ -5,7 +5,7 @@ import { RectButton } from "react-native-gesture-handler";
 export const Container = styled.View`
   flex: 1;
   padding: 30px;
-  border-color: #eee;
+  border-color: #000000;
 `;
 
 export const Form = styled.View`
@@ -20,7 +20,7 @@ export const Input = styled.TextInput.attrs({
 })`
   flex: 1;
   height: 40px;
-  background: #eee;
+  background: #F0F8FF;
   border-radius: 4px;
   padding: 0 15px;
   border: 1px solid #ccc;
@@ -43,11 +43,11 @@ export const List = styled.FlatList.attrs({
 
 export const Movie = styled.View`
 
-  background-color: #FDF5E6;  
+  background-color:rgb(253, 246, 230);  
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 15px;
-  border: 2px dashed #888; 
+  border: 2px dashed #000000; 
   width: 90%;
   align-self: center;
   elevation: 5; 

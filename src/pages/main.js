@@ -23,24 +23,38 @@ export default class Main extends Component {
     favoriteMovies: [],  // Lista de filmes favoritos salvos localmente
     loading: false,  // Carregando filmes
     noResults: false,  // Flag para quando não houver resultados
-    isFavoritesExpanded: false,  // Estado para controlar a visibilidade dos favoritos
+    isFavoritesExpanded: false, // Estado para controlar a visibilidade dos favoritos
+    userId: null, 
   };
 
   async componentDidMount() {
-    // Carregar filmes salvos anteriormente do AsyncStorage
-    const favoriteMovies = await AsyncStorage.getItem("favoriteMovies");
-    if (favoriteMovies) {
-      this.setState({ favoriteMovies: JSON.parse(favoriteMovies) });
+    try {
+      const userId = await AsyncStorage.getItem("userId");
+  
+      if (userId) {
+        console.log("Usuário logado:", userId);
+        this.setState({ userId });
+  
+        // Carregar os favoritos do usuário logado
+        const favoriteMovies = await AsyncStorage.getItem(`favoriteMovies_${userId}`);
+        this.setState({ favoriteMovies: favoriteMovies ? JSON.parse(favoriteMovies) : [] });
+      }
+    } catch (error) {
+      console.log("Erro ao carregar usuário:", error);
     }
   }
+  
+  
 
   componentDidUpdate(_, prevState) {
-    const { favoriteMovies } = this.state;
-    if (prevState.favoriteMovies !== favoriteMovies) {
-      // Atualizar no AsyncStorage sempre que a lista de favoritos for alterada
-      AsyncStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
+    const { favoriteMovies, userId } = this.state;
+  
+    if (userId && prevState.favoriteMovies !== favoriteMovies) {
+      console.log("Salvadando favoritos para:", userId);
+      AsyncStorage.setItem(`favoriteMovies_${userId}`, JSON.stringify(favoriteMovies));
     }
   }
+  
 
   handleSearch = async () => {
     try {
@@ -76,8 +90,9 @@ export default class Main extends Component {
   };
 
   handleAddFavorite = (movie) => {
+    
     const { favoriteMovies } = this.state;
-
+    
     // Verificar se o filme já está na lista de favoritos
     const movieExists = favoriteMovies.some((m) => m.imdbID === movie.imdbID);
     if (movieExists) {
@@ -88,7 +103,8 @@ export default class Main extends Component {
     // Adicionar filme à lista de favoritos
     const updatedFavoriteMovies = [...favoriteMovies, movie];
     this.setState({ favoriteMovies: updatedFavoriteMovies }, () => {
-      AsyncStorage.setItem("favoriteMovies", JSON.stringify(updatedFavoriteMovies));
+      AsyncStorage.setItem(`favoriteMovies_${this.state.userId}`, JSON.stringify(updatedFavoriteMovies));
+
     });
   };
 
@@ -117,7 +133,8 @@ export default class Main extends Component {
     const { movies, favoriteMovies, loading, searchText, noResults } = this.state;
 
     return (
-      <Container>
+      <Container style={{ backgroundColor: this.state.isFavoritesExpanded ? '#E6E6FA' : '#F5FFFA' }}>
+
         <Form>
           <Input
             autoCorrect={false}
@@ -171,7 +188,7 @@ export default class Main extends Component {
         )}
 
         {this.state.isFavoritesExpanded ? (
-  <List style={{ height: '1000%' , backgroundColor: '#F5F5DC'}}
+  <List style={{ height: '100000%'}}
     showsVerticalScrollIndicator={false}
     data={favoriteMovies}
     keyExtractor={(movie) => movie.imdbID}

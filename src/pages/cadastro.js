@@ -25,23 +25,39 @@ export default class CadastrarUsuario extends Component {
   // Função para salvar os dados no AsyncStorage
   handleCadastro = async () => {
     const { nome, telefone, cpf, curso, email, password } = this.state;
-
     if (!nome || !telefone || !cpf || !curso || !email || !password) {
       Alert.alert("Erro", "Preencha todos os campos!");
       return;
     }
-
-    const user = { nome, telefone, cpf, curso, email, password };
-
+  
+    const newUser = { nome, telefone, cpf, curso, email, password };
+  
     try {
-      await AsyncStorage.setItem("user", JSON.stringify(user));
+      // Recupera a lista de usuários salvos
+      const usersData = await AsyncStorage.getItem("users");
+      let users = usersData ? JSON.parse(usersData) : [];
+  
+      // Verifica se o email já existe
+      const emailExists = users.some((user) => user.email === email);
+      if (emailExists) {
+        Alert.alert("Erro", "Este e-mail já está cadastrado!");
+        return;
+      }
+  
+      // Adiciona o novo usuário à lista
+      users.push(newUser);
+  
+      // Salva a lista atualizada de usuários no AsyncStorage
+      await AsyncStorage.setItem("users", JSON.stringify(users));
+  
       Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
       this.props.navigation.navigate("Login");
     } catch (error) {
       Alert.alert("Erro", "Falha ao salvar os dados!");
     }
   };
-
+  
+  
   // Função para carregar os dados salvos no AsyncStorage
   carregarDados = async () => {
     try {
@@ -59,7 +75,27 @@ export default class CadastrarUsuario extends Component {
   componentDidMount() {
     this.carregarDados();
   }
-
+  async componentDidMount() {
+    try {
+      const userId = await AsyncStorage.getItem("userId"); 
+      console.log("Usuário logado:", userId); // Verifique se está retornando um valor correto
+  
+      if (userId) {
+        this.setState({ userId });
+  
+        // Carregar os favoritos do usuário específico
+        const favoriteMovies = await AsyncStorage.getItem(`favoriteMovies_${userId}`);
+        console.log("Filmes favoritos carregados:", favoriteMovies);
+  
+        if (favoriteMovies) {
+          this.setState({ favoriteMovies: JSON.parse(favoriteMovies) });
+        }
+      }
+    } catch (error) {
+      console.log("Erro ao carregar usuário:", error);
+    }
+  }
+  
   // Função para atualizar o estado de qual campo está sendo focado
   handleFocus = (field) => {
     this.setState({ focusedField: field });
