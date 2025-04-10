@@ -17,13 +17,13 @@ Utiliza a API do OMDb 🎥 para trazer todas as informações direto pra sua tel
 
 ## 📸 Preview do App
 
-| 🏠 Tela Inicial | 🔍 Busca de Filmes | 🎬 Detalhes do Filme |
+| 🏠 Tela Inicial | 📄 Cadastro | 🔍 Busca de Filmes |
 |----------------|--------------------|-----------------------|
-| <img src="![IMG-20250408-WA0013](https://github.com/user-attachments/assets/0230fb41-e8f2-41bb-a958-e6485c795268)" width="150" alt="Tela Inicial"/> | <img src="https://via.placeholder.com/200x400.png?text=Busca" width="150" alt="Tela de Busca"/> | <img src="https://via.placeholder.com/200x400.png?text=Detalhes" width="150" alt="Tela de Detalhes"/> |
+| <img src="/img/1.jpg" width="150" alt="Tela Inicial"> | <img src="/img/2.jpg" width="150" alt="Cadastro"/> |  <img src="/img/3.jpg" width="150" alt="Busca de filme"/> |
 
-| ⭐ Favoritos | 📤 Compartilhamento | ⚙️ Configurações |
+| 🎥 Filme | ⭐ Favoritos|  🎬 Detalhes do Filme |
 |-------------|---------------------|------------------|
-| <img src="https://via.placeholder.com/200x400.png?text=Favoritos" width="150" alt="Tela de Favoritos"/> | <img src="https://via.placeholder.com/200x400.png?text=Compartilhar" width="150" alt="Tela de Compartilhamento"/> | <img src="https://via.placeholder.com/200x400.png?text=Config" width="150" alt="Tela de Configurações"/> |
+|  <img src="/img/4.jpg" width="150" alt="Filme"/> |  <img src="/img/5.jpg" width="150" alt="Favoritos"/> | <img src="/img/6.jpg"  width="150" alt="Detalhes"/> |
 
 
 
