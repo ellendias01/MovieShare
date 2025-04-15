@@ -6,6 +6,11 @@ Bem-vindo(a) ao **MovieShare**! 🍿✨
 Um app feito com carinho para amantes de filmes que adoram descobrir, favoritar e compartilhar aquelas obras incríveis!  
 Este projeto foi desenvolvido como parte de um trabalho da faculdade 🎓📚.
 
+Feito Por: 
+
+Éllen Dias Farias
+Habbiner Soares de Andrade
+
 ---
 
 ## 💡 Sobre o Projeto
