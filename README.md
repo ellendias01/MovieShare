@@ -8,7 +8,7 @@ Este projeto foi desenvolvido como parte de um trabalho da faculdade 🎓📚.
 
 Feito Por: 
 
-Éllen Dias Farias
+Éllen Dias Farias <br>
 Habbiner Soares de Andrade
 
 ---
