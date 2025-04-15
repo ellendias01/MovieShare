@@ -2,7 +2,6 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from "./pages/main";
 import Login from "./pages/login";
-import User from "./pages/users";
 import CadastrarUsuario from "./pages/cadastro";
 import MovieDetails from "./pages/moviedetails";
 import { Ionicons } from "@expo/vector-icons";
@@ -75,22 +74,6 @@ export default function Routes() {
             />
           ),
         })}
-      />
-
-      <Stack.Screen
-        name="User"
-        component={User}
-        options={{
-          title: "PERFIL DO USUÁRIO",
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "#191970",
-          },
-          headerTitleStyle: {
-            color: "#fff",
-            fontWeight: "bold",
-          },
-        }}
       />
       <Stack.Screen
   name="MovieDetails"
